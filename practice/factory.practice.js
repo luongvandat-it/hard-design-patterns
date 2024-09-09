@@ -9,44 +9,53 @@
     The factory should take the type of shape and return the correct instance.
 */
 
-class Shape {
-    area() {
+// Factory Method Pattern
 
+class Shape {
+    draw() {
+        throw new Error('You must implement the draw method');
     }
 }
 
 class Circle extends Shape {
-    area() {
-        console.log('circle area')
+    draw() {
+        console.log('Drawing a Circle');
     }
 }
 
-class Rectangle extends Shape {
-    area() {
-        console.log('rectangle area')
-    }
-}
-
-class Square extends Shape{
-    area() {
-        console.log('square area')
+class Square extends Shape {
+    draw() {
+        console.log('Drawing a Square');
     }
 }
 
 class ShapeFactory {
-    static create(type, ...params) {
-        switch (type) {
-            case 'Circle': 
-                return new Circle()
-            case 'Rectangle':
-                return new Rectangle()
-            case 'Square':
-                return new Square()
-            default:
-                console.log('Not match any shape!')
-        }
+    createShape() {
+        throw new Error('You must implement the createShape method');
     }
 }
+
+class CircleFactory extends ShapeFactory {
+    createShape() {
+        return new Circle();
+    }
+}
+
+class SquareFactory extends ShapeFactory {
+    createShape() {
+        return new Square();
+    }
+}
+
+// Usage
+const circleFactory = new CircleFactory();
+const shape1 = circleFactory.createShape();
+shape1.draw();  // Output: Drawing a Circle
+
+const squareFactory = new SquareFactory();
+const shape2 = squareFactory.createShape();
+shape2.draw();  // Output: Drawing a Square
+
 // const circle = ShapeFactory.create('Circle').area()
 // const rectangle = ShapeFactory.create('Rectangle').area()
 // const square = ShapeFactory.create('Square').area()
